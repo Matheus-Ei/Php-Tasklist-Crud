@@ -12,12 +12,11 @@ class Database {
     if (self::$pdo === null) {
       $host = $_ENV['DATABASE_HOST'];
       $port = $_ENV['DATABASE_PORT'];
-      $dbname = $_ENV['DATABASE_DATABASE'];
-      $user = $_ENV['DATABASE_USERNAME'];
+      $dbname = $_ENV['DATABASE_NAME'];
+      $user = $_ENV['DATABASE_USER'];
       $password = $_ENV['DATABASE_PASSWORD'];
 
       $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
-      echo("Connecting to database: $dsn\n");
 
       try {
         self::$pdo = new PDO($dsn, $user, $password, [
