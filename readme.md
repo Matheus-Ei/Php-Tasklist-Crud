@@ -10,12 +10,14 @@ This is a simple PHP project running on a vanilla PHP environment using Docker C
 ## Getting Started
 
 1. **Clone the repository:**
+
    ```sh
    git clone git@github.com:Matheus-Ei/Php-Tasklist-Crud.git
    cd Php-Tasklist-Crud
    ```
 
 2. **Build and start the containers:**
+
    ```sh
    docker-compose up --build
    ```

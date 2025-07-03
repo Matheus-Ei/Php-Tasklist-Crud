@@ -27,7 +27,7 @@ class Database {
         die("Error connecting the database: " . $e->getMessage());
       }
     }
-    
+
     return self::$pdo;
   }
 
@@ -51,13 +51,9 @@ class Database {
     return self::get()->lastInsertId();
   }
 
-  public static function update($query, $params = []) {
+  public static function query($query, $params = []) {
     $stmt = self::get()->prepare($query);
-    return $stmt->execute($params);
-  }
-
-  public static function delete($query, $params = []) {
-    $stmt = self::get()->prepare($query);
-    return $stmt->execute($params);
+    $stmt->execute($params);
+    return $stmt;
   }
 }
