@@ -21,4 +21,9 @@ $routes = [
         'controller' => 'App\Controllers\TaskController',
         'method' => 'update',
     ],
+
+    'tasks/view' => [
+        'controller' => 'App\Controllers\TaskController',
+        'method' => 'view',
+    ],
   ];

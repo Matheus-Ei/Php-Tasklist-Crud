@@ -18,7 +18,7 @@ class TaskController {
 
   private function verifyMethodPost() {
     if($_SERVER['REQUEST_METHOD'] !== 'POST') {
-      header('Location: /public/index.php/tasks');
+      redirect('/tasks');
     };
   }
 
@@ -31,7 +31,7 @@ class TaskController {
 
     $this->taskModel->create($title, $description, $priority);
 
-    header('Location: /public/index.php/tasks');
+    redirect('/tasks');
   }
 
   public function delete() {
@@ -41,7 +41,7 @@ class TaskController {
 
     $this->taskModel->delete($id);
 
-    header('Location: /public/index.php/tasks');
+    redirect('/tasks');
   }
 
   public function update() {
@@ -54,10 +54,22 @@ class TaskController {
 
     $this->taskModel->update($id, $title, $description, $priority);
 
-    header('Location: /public/index.php/tasks');
+    redirect('/tasks');
   }
 
   public function view() {
+    $id = $_GET['id'] ?? null;
 
+    if (!$id) {
+      redirect('/tasks');
+    }
+
+    $task = $this->taskModel->getById($id)[0];
+
+    if (!$task) {
+      redirect('/tasks');
+    }
+
+    require_once __DIR__ . '/../Views/tasks/view.php';
   }
 }

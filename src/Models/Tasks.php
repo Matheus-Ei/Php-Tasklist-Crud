@@ -8,6 +8,10 @@ class Tasks {
     return Database::select("SELECT * FROM tasks"); 
   }
 
+  public function getById($id) {
+    return Database::select("SELECT * FROM tasks where id=:id", ["id" => $id]); 
+  }
+
   public function create($title, $description, $priority) {
     return Database::insert(
       "INSERT INTO tasks (title, description, priority) VALUES (:title, :description, :priority)",
