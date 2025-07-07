@@ -2,14 +2,27 @@
 /**
  * Returns the path to the specified file or directory.
  *
- * @param string $path The relative path to the file or directory.
- * @return string The absolute path to the file or directory.
+ * @param string $path
+ * @return string
  */
 function basePath($path) {
-    $absolutePath = __DIR__ . '/../' . $path;
-    return $absolutePath;
+  $absolutePath = __DIR__ . '/' . $path;
+  return $absolutePath;
 };
 
+/**
+ * Returns if the request method is the specified method.
+ *
+ * @param string $method
+ * @return bool
+ */
+function isMethod($method) {
+  if($_SERVER['REQUEST_METHOD'] === $method) {
+    return true;
+  };
+
+  return false;
+};
 
 /*
  * Inspect a value
@@ -42,5 +55,5 @@ function inspectAndDie($value) {
  * @return void
  */
 function redirect($url) {
-    header("Location: $url");
+  header("Location: $url");
 }

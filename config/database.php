@@ -32,7 +32,7 @@ class Database {
   }
 
   public static function get() {
-    return self::connect();
+    return self::$pdo;
   }
 
   public static function disconnect() {
@@ -40,19 +40,19 @@ class Database {
   }
 
   public static function select($query, $params = []) {
-    $stmt = self::get()->prepare($query);
+    $stmt = self::$pdo->prepare($query);
     $stmt->execute($params);
     return $stmt->fetchAll();
   }
 
   public static function insert($query, $params = []) {
-    $stmt = self::get()->prepare($query);
+    $stmt = self::$pdo->prepare($query);
     $stmt->execute($params);
-    return self::get()->lastInsertId();
+    return self::$pdo->lastInsertId();
   }
 
   public static function query($query, $params = []) {
-    $stmt = self::get()->prepare($query);
+    $stmt = self::$pdo->prepare($query);
     $stmt->execute($params);
     return $stmt;
   }

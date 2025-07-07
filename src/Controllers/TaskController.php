@@ -13,29 +13,35 @@ class TaskController {
   public function index() {
     $tasks = $this->taskModel->getAll();
 
-    require_once __DIR__ . '/../Views/tasks/index.php';
-  }
-
-  private function verifyMethodPost() {
-    if($_SERVER['REQUEST_METHOD'] !== 'POST') {
-      redirect('/tasks');
-    };
+    require basePath('Views/tasks/index.php');
   }
 
   public function create() {
-    $this->verifyMethodPost();
+    // Creates a new task if the method is POST
+    if(isMethod("POST")) {
+      $title = $_POST['title'];
+      $description = $_POST['description'];
+      $priority = $_POST['priority'];
 
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $priority = $_POST['priority'];
+      $this->taskModel->create($title, $description, $priority);
 
-    $this->taskModel->create($title, $description, $priority);
+      redirect('/tasks');
+    } else {
+      $title = '';
+      $description = '';
+      $priority = '';
+      $action='create'; 
+      $submitText='Create'; 
 
-    redirect('/tasks');
+      // If the method is not POST, show the create task form
+      require basePath('Views/tasks/create.php');
+    }
   }
 
   public function delete() {
-    $this->verifyMethodPost();
+    if(!isMethod("POST")) {
+      redirect('/tasks');
+    }
 
     $id = $_POST['id'];
 
@@ -45,16 +51,38 @@ class TaskController {
   }
 
   public function update() {
-    $this->verifyMethodPost();
+    // Updates the task if the method is POST
+    if(isMethod("POST")) {
+      $id = $_POST['id'];
+      $title = $_POST['title'];
+      $description = $_POST['description'];
+      $priority = $_POST['priority'];
 
-    $id = $_POST['id'];
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $priority = $_POST['priority'];
+      $this->taskModel->update($id, $title, $description, $priority);
 
-    $this->taskModel->update($id, $title, $description, $priority);
+      redirect('/tasks');
+    } else {
+      // If the method is not POST, show the update task form
+      $id = htmlspecialchars($_GET['id']) ?? null;
 
-    redirect('/tasks');
+      if (!$id) {
+        redirect('/tasks');
+      }
+
+      $task = $this->taskModel->getById($id)[0];
+
+      $title = $task['title'] ?? '';
+      $description = $task['description'] ?? '';
+      $priority = $task['priority'] ?? '';
+      $action='update'; 
+      $submitText='Update'; 
+
+      if (!$task) {
+        redirect('/tasks');
+      }
+
+      require basePath('Views/tasks/update.php');
+    }
   }
 
   public function view() {
@@ -70,6 +98,6 @@ class TaskController {
       redirect('/tasks');
     }
 
-    require_once __DIR__ . '/../Views/tasks/view.php';
+    require basePath('Views/tasks/view.php');
   }
 }

@@ -8,9 +8,7 @@
 
   <body class='flex flex-col items-center justify-start min-h-screen py-6 w-full'>
     <div class="flex flex-col items-center min-h-screen p-4 w-2/4 gap-y-4">
-      <?php require 'partials/head.php' ?>
-
-      <?php $action='tasks/create'; require 'partials/form.php' ?>
+      <?php require 'partials/header.php' ?>
 
       <?php if (empty($tasks)): ?>
       <p class='text-gray-500'>No tasks available.</p>

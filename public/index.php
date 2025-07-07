@@ -14,6 +14,9 @@ require_once '../config/routes.php';
 $controller = null;
 $method = null;
 
+// Connect to the database
+Config\Database::connect();
+
 // Get the requested URI and method
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

@@ -1,11 +1,6 @@
 {
   "name": "unochapeco/php-tasklist-crud",
-  "autoload": {
-    "psr-4": {
-      "App\\": "src/",
-      "Config\\": "config/"
-    }
-  },
+  "autoload": {},
   "authors": [
     {
       "name": "Matheus-Ei",
